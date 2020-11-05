@@ -3,36 +3,6 @@ const assert = chai.assert;
 
 const wordSearch = require('../wordsearch.js')
 
-const transpose = function(matrix) {
-  let temp = [];
-  for (let i = 0; i < matrix[0].length; i++) {
-    temp.push([]);
-  }
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0 ; j < matrix[i].length; j++) {
-        temp[j][i] = matrix[i][j];
-    }
-  }
-  return temp;
-};
-const wordSearch = (letters, word) => {
-  const horizontalJoin = letters.map(ls => ls.join(‘’))
-  for (let l of horizontalJoin) {
-      if(l.includes(word)) {
-          return true
-      }
-  }
-  const newLetters = transpose(letters)
-  const horizontalJoin2 = newLetters.map(ls => ls.join(‘’))
-  for (let l of horizontalJoin2) {
-      if(l.includes(word)) {
-          return true
-          }
-      }
-      return false
-  }
-module.exports = wordSearch
-
 describe("#wordSearch()", function() {
   it("should return false if the word is not present", function() {
     const result = wordSearch([
@@ -50,7 +20,7 @@ describe("#wordSearch()", function() {
     assert.isFalse(result);
   });
 
-  it("should return true if the word is present", function() {
+  it("should return true if the word is present(HORIZONTAL)", function() {
     const result = wordSearch([
       ['A', 'W', 'C', 'F', 'Q', 'U', 'A', 'L'],
       ['S', 'E', 'I', 'N', 'F', 'E', 'L', 'D'],
@@ -65,4 +35,20 @@ describe("#wordSearch()", function() {
 
     assert.isTrue(result);
   });
+  it("should return true if the word is present (VERTICAL)", function() {
+    const result = wordSearch([
+      ['A', 'W', 'S', 'F', 'Q', 'U', 'A', 'L'],
+      ['Y', 'F', 'E', 'F', 'Q', 'U', 'A', 'L'],
+      ['H', 'M', 'I', 'T', 'E', 'V', 'R', 'G'],
+      ['W', 'H', 'N', 'S', 'Y', 'E', 'R', 'L'],
+      ['B', 'F', 'F', 'E', 'N', 'E', 'Y', 'B'],
+      ['U', 'B', 'E', 'W', 'A', 'P', 'A', 'I'],
+      ['S', 'E', 'L', 'N', 'F', 'E', 'L', 'D'],
+      ['O', 'D', 'D', 'A', 'K', 'U', 'A', 'S'],
+      ['E', 'Z', 'D', 'F', 'Q', 'U', 'A', 'L'],
+    ], 'SEINFELD')
+
+    assert.isTrue(result);
+  })
+
 });
